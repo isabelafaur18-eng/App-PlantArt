@@ -14,6 +14,8 @@ const SEASONS = [
   { key: "winter", label: "❄️ Invierno", months: [12, 1, 2] },
 ];
 
+const EMOJIS = ["🌿", "🌵", "🌺", "🌸", "🌻", "🌱", "🍀", "🌴", "🎋", "🪴", "🌾", "🍃"];
+
 const getCurrentSeason = () => {
   const m = new Date().getMonth() + 1;
   return SEASONS.find(s => s.months.includes(m))?.key || "spring";
@@ -105,13 +107,20 @@ function WaterBar({ plant }) {
   );
 }
 
-function Modal({ title, onClose, children }) {
+function Modal({ title, onClose, children, extra }) {
   return (
     <div style={{ position: "fixed", inset: 0, background: "rgba(10,20,10,0.75)", display: "flex", alignItems: "center", justifyContent: "center", zIndex: 100, padding: "1rem" }}>
       <div style={{ background: "#111a0f", border: "1px solid #2a4a2a", borderRadius: "16px", padding: "2rem", maxWidth: "500px", width: "100%", maxHeight: "92vh", overflowY: "auto" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
-          <h2 style={{ margin: 0, color: "#c8e6c9", fontFamily: "'Georgia', serif", fontSize: "1.3rem" }}>{title}</h2>
-          <button onClick={onClose} style={{ background: "none", border: "none", color: "#5a8a5a", fontSize: "1.5rem", cursor: "pointer", lineHeight: 1 }}>×</button>
+          {typeof title === "string" ? (
+            <h2 style={{ margin: 0, color: "#c8e6c9", fontFamily: "'Georgia', serif", fontSize: "1.3rem" }}>{title}</h2>
+          ) : (
+            <div style={{ flex: 1 }}>{title}</div>
+          )}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+            {extra}
+            <button onClick={onClose} style={{ background: "none", border: "none", color: "#5a8a5a", fontSize: "1.5rem", cursor: "pointer", lineHeight: 1 }}>×</button>
+          </div>
         </div>
         {children}
       </div>
@@ -294,6 +303,8 @@ function PlantDetail({ plant, onClose, onLog, onUpdate }) {
   const [activeTab, setActiveTab] = useState("riego");
   const [editNotes, setEditNotes] = useState(plant.notes || "");
   const [saved, setSaved] = useState(false);
+  const [editingName, setEditingName] = useState(false);
+  const [tempName, setTempName] = useState(plant.name);
 
   const handleSaveNotes = () => {
     onUpdate({ ...plant, notes: editNotes });
@@ -301,10 +312,33 @@ function PlantDetail({ plant, onClose, onLog, onUpdate }) {
     setTimeout(() => setSaved(false), 2000);
   };
 
+  const handleSaveName = () => {
+    if (tempName.trim() && tempName.trim() !== plant.name) {
+      onUpdate({ ...plant, name: tempName.trim() });
+    }
+    setEditingName(false);
+  };
+
   const tabs = [["riego", "💧 Riego"], ["historial", "Historial"], ["cuidados", "Cuidados"], ["notas", "Notas"]];
 
   return (
-    <Modal title={`${plant.emoji} ${plant.name}`} onClose={onClose}>
+    <Modal
+      title={editingName ? (
+        <input value={tempName} onChange={e => setTempName(e.target.value)}
+          onKeyDown={e => { if (e.key === "Enter") handleSaveName(); if (e.key === "Escape") setEditingName(false); }}
+          onBlur={handleSaveName}
+          autoFocus
+          style={{ width: "100%", background: "#0a140a", border: "1px solid #4a7a4a", borderRadius: "8px", color: "#c8e6c9", padding: "0.3rem 0.5rem", fontSize: "1.3rem", fontFamily: "'Georgia', serif", fontWeight: "bold", outline: "none", boxSizing: "border-box" }} />
+      ) : `${plant.emoji} ${plant.name}`}
+      onClose={onClose}
+      extra={!editingName ? (
+        <button onClick={() => { setTempName(plant.name); setEditingName(true); }}
+          style={{ background: "none", border: "none", color: "#5a8a5a", cursor: "pointer", fontSize: "1.1rem", lineHeight: 1, padding: "0.1rem" }}
+          title="Editar nombre">✏️</button>
+      ) : (
+        <button onClick={handleSaveName}
+          style={{ background: "#1a4a1a", border: "1px solid #4a8a4a", color: "#c8e6c9", borderRadius: "6px", padding: "0.2rem 0.5rem", cursor: "pointer", fontSize: "0.85rem", lineHeight: 1.3 }}>✓</button>
+      )}>
       <div style={{ color: "#4a7a4a", fontSize: "0.82rem", fontStyle: "italic", marginBottom: "1.25rem" }}>{plant.species} · {plant.location}</div>
       <div style={{ display: "flex", gap: "0.4rem", marginBottom: "1.5rem", flexWrap: "wrap" }}>
         {tabs.map(([tab, label]) => (
@@ -410,7 +444,6 @@ function LogModal({ plant, type, onClose, onSave }) {
 
 function AddPlantModal({ onClose, onAdd }) {
   const [form, setForm] = useState({ name: "", species: "", location: "", emoji: "🌿", notes: "" });
-  const EMOJIS = ["🌿", "🌵", "🌺", "🌸", "🌻", "🌱", "🍀", "🌴", "🎋", "🪴", "🌾", "🍃"];
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }));
   return (
     <Modal title="➕ Añadir planta" onClose={onClose}>
@@ -546,3 +579,4 @@ export default function App() {
     </div>
   );
 }
+
