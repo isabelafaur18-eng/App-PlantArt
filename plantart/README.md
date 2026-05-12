@@ -32,6 +32,7 @@ CREATE TABLE plants (
 2. En "Build settings":
    - Build command: `npm run build`
    - Publish directory: `dist`
+   - Node version: `20` (importante: Vite requiere Node.js 20+)
 3. En "Environment variables", agrega:
    - `DATABASE_URL`: Tu cadena de conexión de Neon
 
