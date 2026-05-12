@@ -7,16 +7,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 async function generateIcons() {
-  const svgBuffer = fs.readFileSync(path.join(__dirname, 'public', 'icon.svg'));
+  const sourceBuffer = fs.readFileSync(path.join(__dirname, 'public', 'icon.jpg'));
 
   // Generate 192x192 icon
-  await sharp(svgBuffer)
+  await sharp(sourceBuffer)
     .resize(192, 192)
     .png()
     .toFile(path.join(__dirname, 'public', 'icon-192.png'));
 
   // Generate 512x512 icon
-  await sharp(svgBuffer)
+  await sharp(sourceBuffer)
     .resize(512, 512)
     .png()
     .toFile(path.join(__dirname, 'public', 'icon-512.png'));
