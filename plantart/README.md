@@ -54,6 +54,9 @@ npm run dev
 - Interfaz oscura con tema verde
 - Búsqueda y filtrado de plantas
 - Almacenamiento en base de datos PostgreSQL (Neon)
+- **PWA (Progressive Web App)**: Funciona como app nativa en móviles
+- **Acceso offline**: Funciona sin conexión a internet
+- **Instalación en dispositivos**: Se puede instalar como app en iOS/Android
 
 ## 🌐 Acceso Multi-dispositivo
 
@@ -69,3 +72,25 @@ Todos los dispositivos acceden a la **misma base de datos** en tiempo real, por 
 Una vez desplegado en Netlify, tendrás una URL como: `https://tu-app-plantart.netlify.app`
 
 Comparte esta URL para acceder desde cualquier dispositivo.
+
+## 📱 PWA (Progressive Web App)
+
+La aplicación incluye características de **Progressive Web App** para una experiencia similar a una app nativa:
+
+### Instalación en iOS
+1. Abre la app en Safari
+2. Toca el botón "Compartir" (cuadrado con flecha hacia arriba)
+3. Selecciona "Añadir a pantalla de inicio"
+4. La app aparecerá en tu pantalla de inicio con el icono de planta
+
+### Instalación en Android
+1. Abre la app en Chrome
+2. Toca el menú (tres puntos)
+3. Selecciona "Añadir a pantalla de inicio"
+4. La app se instalará automáticamente
+
+### Características PWA
+- **Modo standalone**: Se ejecuta sin barra de direcciones del navegador
+- **Icono personalizado**: Icono de planta en la pantalla de inicio
+- **Acceso offline**: Funciona sin conexión (datos básicos en caché)
+- **Notificaciones**: Soporte para futuras notificaciones de riego
