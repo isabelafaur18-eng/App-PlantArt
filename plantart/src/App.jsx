@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 
 const CARE_TYPES = {
-  watering: { label: "Riego", emoji: "💧", color: "#4fc3f7" },
-  fertilizing: { label: "Fertilización", emoji: "🌿", color: "#81c784" },
-  leaf: { label: "Nueva hoja", emoji: "🌱", color: "#aed581" },
-  transplant: { label: "Trasplante", emoji: "🪴", color: "#ffb74d" },
+  watering: { label: "Riego", emoji: "💧", color: "#ffffff"},
+  fertilizing: { label: "Fertilización", emoji: "🌿", color: "#ffffff"},
+  leaf: { label: "Nueva hoja", emoji: "🌱", color: "#ffffff"},
+  transplant: { label: "Trasplante", emoji: "🪴", color: "#ffffff"},
 };
 
 const SEASONS = [
@@ -42,10 +42,10 @@ const getWaterStatus = (plant) => {
 };
 
 const STATUS_STYLES = {
-  ok:      { color: "#4caf50", bg: "#0d2a0d", border: "#2a5a2a", label: "✓ Al día" },
-  soon:    { color: "#ff9800", bg: "#2a1a00", border: "#5a3a00", label: "⚡ Pronto" },
-  overdue: { color: "#f44336", bg: "#2a0a0a", border: "#5a1a1a", label: "⚠ Regar ya" },
-  unknown: { color: "#5a8a5a", bg: "#0a140a", border: "#1e3a1e", label: "Sin configurar" },
+  ok:      { color: "#ffffff", bg: "#1f4f1f", border: "#2a5a2a", label: "✓ Al día" },
+  soon:    { color: "#ffffff", bg: "#2a1a00", border: "#5a3a00", label: "⚡ Pronto" },
+  overdue: { color: "#ffffff", bg: "#2a0a0a", border: "#5a1a1a", label: "⚠ Regar ya" },
+  unknown: { color: "#ffffff", bg: "#0a140a", border: "#1e3a1e", label: "Sin configurar" },
 };
 
 const formatDate = (iso) => {
@@ -82,15 +82,15 @@ function WaterBar({ plant }) {
   if (ws.status === "unknown") {
     return (
       <div style={{ background: "#0a140a", borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
-        <span style={{ fontSize: "0.7rem", color: "#3a6a3a" }}>💧 Sin frecuencia configurada</span>
+        <span style={{ fontSize: "0.7rem", color: "#ffffff"}}>💧 Sin frecuencia configurada</span>
       </div>
     );
   }
   return (
     <div style={{ background: st.bg, border: `1px solid ${st.border}`, borderRadius: "8px", padding: "0.5rem 0.75rem" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.3rem" }}>
-        <span style={{ fontSize: "0.7rem", color: st.color, fontWeight: "bold" }}>{st.label}</span>
-        <span style={{ fontSize: "0.7rem", color: "#5a8a5a" }}>
+        <span style={{ fontSize: "0.7rem", color: "#ffffff", fontWeight: "bold" }}>{st.label}</span>
+        <span style={{ fontSize: "0.7rem", color: "#ffffff"}}>
           {ws.status === "overdue"
             ? `${ws.daysOverdue} día${ws.daysOverdue !== 1 ? "s" : ""} de retraso`
             : `en ${ws.daysUntil} día${ws.daysUntil !== 1 ? "s" : ""}`}
@@ -113,13 +113,13 @@ function Modal({ title, onClose, children, extra }) {
       <div style={{ background: "#111a0f", border: "1px solid #2a4a2a", borderRadius: "16px", padding: "2rem", maxWidth: "500px", width: "100%", maxHeight: "92vh", overflowY: "auto" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "1.5rem" }}>
           {typeof title === "string" ? (
-            <h2 style={{ margin: 0, color: "#c8e6c9", fontFamily: "'Georgia', serif", fontSize: "1.3rem" }}>{title}</h2>
+            <h2 style={{ margin: 0, color: "#ffffff", fontFamily: "'Georgia', serif", fontSize: "1.3rem" }}>{title}</h2>
           ) : (
             <div style={{ flex: 1 }}>{title}</div>
           )}
           <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
             {extra}
-            <button onClick={onClose} style={{ background: "none", border: "none", color: "#5a8a5a", fontSize: "1.5rem", cursor: "pointer", lineHeight: 1 }}>×</button>
+            <button onClick={onClose} style={{ background: "none", border: "none", color: "#ffffff", fontSize: "1.5rem", cursor: "pointer", lineHeight: 1 }}>×</button>
           </div>
         </div>
         {children}
@@ -153,10 +153,10 @@ function PlantCard({ plant, onSelect, onLog }) {
       <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "0.85rem" }}>
         <span style={{ fontSize: "2rem" }}>{plant.emoji}</span>
         <div>
-          <div style={{ color: "#c8e6c9", fontFamily: "'Georgia', serif", fontSize: "1.05rem", fontWeight: "bold" }}>{plant.name}</div>
-          <div style={{ color: "#4a7a4a", fontSize: "0.72rem", fontStyle: "italic" }}>{plant.species}</div>
+          <div style={{ color: "#ffffff", fontFamily: "'Georgia', serif", fontSize: "1.05rem", fontWeight: "bold" }}>{plant.name}</div>
+          <div style={{ color: "#ffffff", fontSize: "0.72rem", fontStyle: "italic" }}>{plant.species}</div>
         </div>
-        <div style={{ marginLeft: "auto", background: "#1a2a1a", padding: "0.2rem 0.55rem", borderRadius: "20px", fontSize: "0.68rem", color: "#5a8a5a" }}>
+        <div style={{ marginLeft: "auto", background: "#1a2a1a", padding: "0.2rem 0.55rem", borderRadius: "20px", fontSize: "0.68rem", color: "#ffffff"}}>
           📍 {plant.location}
         </div>
       </div>
@@ -166,8 +166,8 @@ function PlantCard({ plant, onSelect, onLog }) {
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0.4rem", marginBottom: "0.85rem" }}>
         {Object.entries(CARE_TYPES).map(([type, info]) => (
           <div key={type} style={{ background: "#0a140a", borderRadius: "7px", padding: "0.4rem 0.65rem" }}>
-            <div style={{ fontSize: "0.62rem", color: "#3a6a3a", marginBottom: "0.1rem" }}>{info.emoji} {info.label}</div>
-            <div style={{ fontSize: "0.72rem", color: lastCare[type] ? "#8bc34a" : "#3a5a3a" }}>
+            <div style={{ fontSize: "0.62rem", color: "#ffffff", marginBottom: "0.1rem" }}>{info.emoji} {info.label}</div>
+            <div style={{ fontSize: "0.72rem", color: "#ffffff"}}>
               {lastCare[type] ? daysAgo(lastCare[type]) : "sin registro"}
             </div>
           </div>
@@ -176,7 +176,7 @@ function PlantCard({ plant, onSelect, onLog }) {
       <div style={{ display: "flex", gap: "0.45rem", flexWrap: "wrap" }} onClick={e => e.stopPropagation()}>
         {Object.entries(CARE_TYPES).map(([type, info]) => (
           <button key={type} onClick={() => onLog(plant, type)}
-            style={{ background: "#0a1a0a", border: `1px solid ${info.color}44`, color: info.color, borderRadius: "7px", padding: "0.3rem 0.55rem", fontSize: "0.75rem", cursor: "pointer" }}
+            style={{ background: "#0a1a0a", border: `1px solid ${info.color}44`, color: "#ffffff", borderRadius: "7px", padding: "0.3rem 0.55rem", fontSize: "0.75rem", cursor: "pointer" }}
             onMouseEnter={e => e.currentTarget.style.background = info.color + "22"}
             onMouseLeave={e => e.currentTarget.style.background = "#0a1a0a"}
           >{info.emoji}</button>
@@ -196,10 +196,10 @@ function WateringTab({ plant, onUpdate }) {
   const ws = getWaterStatus(plant);
   const st = STATUS_STYLES[ws.status];
 
-  const saveInterval = (seasonKey, val) => {
+  const saveInterval = async (seasonKey, val) => {
     const days = parseInt(val);
     if (!days || days < 1) return;
-    onUpdate({ ...plant, waterSchedule: { ...schedule, [seasonKey]: days } });
+    await onUpdate({ ...plant, waterSchedule: { ...schedule, [seasonKey]: days } });
     setEditing(null);
     setSaved(true);
     setTimeout(() => setSaved(false), 1800);
@@ -215,25 +215,25 @@ function WateringTab({ plant, onUpdate }) {
         <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
           <span style={{ fontSize: "2rem" }}>💧</span>
           <div style={{ flex: 1 }}>
-            {ws.status === "unknown" && <div style={{ color: "#5a8a5a", fontSize: "0.9rem" }}>Configura la frecuencia de riego abajo</div>}
+            {ws.status === "unknown" && <div style={{ color: "#ffffff", fontSize: "0.9rem" }}>Configura la frecuencia de riego abajo</div>}
             {ws.status === "ok" && <>
-              <div style={{ color: "#4caf50", fontWeight: "bold", fontSize: "0.95rem" }}>Todo bien 🌿</div>
-              <div style={{ color: "#5a8a5a", fontSize: "0.78rem" }}>Próximo riego en <strong style={{ color: "#c8e6c9" }}>{ws.daysUntil} días</strong></div>
+              <div style={{ color: "#ffffff", fontWeight: "bold", fontSize: "0.95rem" }}>Todo bien 🌿</div>
+              <div style={{ color: "#ffffff", fontSize: "0.78rem" }}>Próximo riego en <strong style={{ color: "#ffffff"}}>{ws.daysUntil} días</strong></div>
             </>}
             {ws.status === "soon" && <>
-              <div style={{ color: "#ff9800", fontWeight: "bold", fontSize: "0.95rem" }}>Regar pronto ⚡</div>
-              <div style={{ color: "#5a8a5a", fontSize: "0.78rem" }}>En <strong style={{ color: "#ff9800" }}>{ws.daysUntil} día{ws.daysUntil !== 1 ? "s" : ""}</strong></div>
+              <div style={{ color: "#ffffff", fontWeight: "bold", fontSize: "0.95rem" }}>Regar pronto ⚡</div>
+              <div style={{ color: "#ffffff", fontSize: "0.78rem" }}>En <strong style={{ color: "#ffffff"}}>{ws.daysUntil} día{ws.daysUntil !== 1 ? "s" : ""}</strong></div>
             </>}
             {ws.status === "overdue" && <>
-              <div style={{ color: "#f44336", fontWeight: "bold", fontSize: "0.95rem" }}>¡Regar urgente! ⚠</div>
-              <div style={{ color: "#5a8a5a", fontSize: "0.78rem" }}>Lleva <strong style={{ color: "#f44336" }}>{ws.daysOverdue} día{ws.daysOverdue !== 1 ? "s" : ""}</strong> de retraso</div>
+              <div style={{ color: "#ffffff", fontWeight: "bold", fontSize: "0.95rem" }}>¡Regar urgente! ⚠</div>
+              <div style={{ color: "#ffffff", fontSize: "0.78rem" }}>Lleva <strong style={{ color: "#ffffff"}}>{ws.daysOverdue} día{ws.daysOverdue !== 1 ? "s" : ""}</strong> de retraso</div>
             </>}
-            {lastWater && <div style={{ color: "#3a6a3a", fontSize: "0.72rem", marginTop: "0.2rem" }}>Último riego: {formatDate(lastWater.date)}</div>}
+            {lastWater && <div style={{ color: "#ffffff", fontSize: "0.72rem", marginTop: "0.2rem" }}>Último riego: {formatDate(lastWater.date)}</div>}
           </div>
         </div>
         {ws.status !== "unknown" && (
           <div style={{ marginTop: "0.75rem" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.68rem", color: "#3a6a3a", marginBottom: "0.3rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "0.68rem", color: "#ffffff", marginBottom: "0.3rem" }}>
               <span>Último riego</span><span>Próximo riego</span>
             </div>
             <div style={{ background: "#0a140a", borderRadius: "6px", height: "8px", overflow: "hidden" }}>
@@ -248,9 +248,9 @@ function WateringTab({ plant, onUpdate }) {
       </div>
 
       {/* Season intervals */}
-      <div style={{ color: "#5a8a5a", fontSize: "0.8rem", marginBottom: "0.75rem" }}>
+      <div style={{ color: "#ffffff", fontSize: "0.8rem", marginBottom: "0.75rem" }}>
         Frecuencia de riego por época
-        {saved && <span style={{ color: "#4caf50", marginLeft: "0.5rem" }}>✓ Guardado</span>}
+        {saved && <span style={{ color: "#ffffff", marginLeft: "0.5rem" }}>✓ Guardado</span>}
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem", marginBottom: "1rem" }}>
         {SEASONS.map(season => {
@@ -266,25 +266,25 @@ function WateringTab({ plant, onUpdate }) {
             }}>
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                  <span style={{ fontSize: "0.85rem", color: "#c8e6c9" }}>{season.label}</span>
-                  {isCurrent && <span style={{ fontSize: "0.62rem", background: "#1a3a1a", border: "1px solid #3a6a3a", color: "#8bc34a", borderRadius: "10px", padding: "0.1rem 0.4rem" }}>ahora</span>}
+                  <span style={{ fontSize: "0.85rem", color: "#ffffff"}}>{season.label}</span>
+                  {isCurrent && <span style={{ fontSize: "0.62rem", background: "#1a3a1a", border: "1px solid #3a6a3a", color: "#ffffff", borderRadius: "10px", padding: "0.1rem 0.4rem" }}>ahora</span>}
                 </div>
-                {!isEditing && <div style={{ color: days ? "#5a9a5a" : "#3a5a3a", fontSize: "0.75rem", marginTop: "0.15rem" }}>{days ? `Cada ${days} día${days !== 1 ? "s" : ""}` : "No configurado"}</div>}
+                {!isEditing && <div style={{ color: "#ffffff", fontSize: "0.75rem", marginTop: "0.15rem" }}>{days ? `Cada ${days} día${days !== 1 ? "s" : ""}` : "No configurado"}</div>}
               </div>
               {isEditing ? (
                 <div style={{ display: "flex", gap: "0.4rem", alignItems: "center" }}>
                   <input type="number" min="1" max="365" value={tempVal} onChange={e => setTempVal(e.target.value)}
                     onKeyDown={e => e.key === "Enter" && saveInterval(season.key, tempVal)}
                     autoFocus placeholder="días"
-                    style={{ width: "64px", background: "#0a140a", border: "1px solid #4a7a4a", borderRadius: "6px", color: "#c8e6c9", padding: "0.3rem 0.5rem", fontSize: "0.85rem", textAlign: "center" }} />
+                    style={{ width: "64px", background: "#0a140a", border: "1px solid #4a7a4a", borderRadius: "6px", color: "#ffffff", padding: "0.3rem 0.5rem", fontSize: "0.85rem", textAlign: "center" }} />
                   <button onClick={() => saveInterval(season.key, tempVal)}
-                    style={{ background: "#1a4a1a", border: "1px solid #4a8a4a", color: "#c8e6c9", borderRadius: "6px", padding: "0.3rem 0.6rem", cursor: "pointer", fontSize: "0.8rem" }}>✓</button>
+                    style={{ background: "#1a4a1a", border: "1px solid #4a8a4a", color: "#ffffff", borderRadius: "6px", padding: "0.3rem 0.6rem", cursor: "pointer", fontSize: "0.8rem" }}>✓</button>
                   <button onClick={() => setEditing(null)}
-                    style={{ background: "none", border: "1px solid #3a3a3a", color: "#5a5a5a", borderRadius: "6px", padding: "0.3rem 0.5rem", cursor: "pointer", fontSize: "0.8rem" }}>✕</button>
+                    style={{ background: "none", border: "1px solid #3a3a3a", color: "#ffffff", borderRadius: "6px", padding: "0.3rem 0.5rem", cursor: "pointer", fontSize: "0.8rem" }}>✕</button>
                 </div>
               ) : (
                 <button onClick={() => { setEditing(season.key); setTempVal(days || ""); }}
-                  style={{ background: "#0a1a0a", border: "1px solid #2a4a2a", color: "#5a8a5a", borderRadius: "7px", padding: "0.3rem 0.7rem", cursor: "pointer", fontSize: "0.75rem" }}>
+                  style={{ background: "#0a1a0a", border: "1px solid #2a4a2a", color: "#ffffff", borderRadius: "7px", padding: "0.3rem 0.7rem", cursor: "pointer", fontSize: "0.75rem" }}>
                   {days ? "Editar" : "+ Añadir"}
                 </button>
               )}
@@ -292,7 +292,7 @@ function WateringTab({ plant, onUpdate }) {
           );
         })}
       </div>
-      <div style={{ color: "#2a5a2a", fontSize: "0.72rem", lineHeight: 1.5 }}>
+      <div style={{ color: "#ffffff", fontSize: "0.72rem", lineHeight: 1.5 }}>
         💡 El estado en la tarjeta se actualiza automáticamente según la época actual y el último riego registrado.
       </div>
     </div>
@@ -306,15 +306,15 @@ function PlantDetail({ plant, onClose, onLog, onUpdate }) {
   const [editingName, setEditingName] = useState(false);
   const [tempName, setTempName] = useState(plant.name);
 
-  const handleSaveNotes = () => {
-    onUpdate({ ...plant, notes: editNotes });
+  const handleSaveNotes = async () => {
+    await onUpdate({ ...plant, notes: editNotes });
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
 
-  const handleSaveName = () => {
+  const handleSaveName = async () => {
     if (tempName.trim() && tempName.trim() !== plant.name) {
-      onUpdate({ ...plant, name: tempName.trim() });
+      await onUpdate({ ...plant, name: tempName.trim() });
     }
     setEditingName(false);
   };
@@ -328,24 +328,24 @@ function PlantDetail({ plant, onClose, onLog, onUpdate }) {
           onKeyDown={e => { if (e.key === "Enter") handleSaveName(); if (e.key === "Escape") setEditingName(false); }}
           onBlur={handleSaveName}
           autoFocus
-          style={{ width: "100%", background: "#0a140a", border: "1px solid #4a7a4a", borderRadius: "8px", color: "#c8e6c9", padding: "0.3rem 0.5rem", fontSize: "1.3rem", fontFamily: "'Georgia', serif", fontWeight: "bold", outline: "none", boxSizing: "border-box" }} />
+          style={{ width: "100%", background: "#0a140a", border: "1px solid #4a7a4a", borderRadius: "8px", color: "#ffffff", padding: "0.3rem 0.5rem", fontSize: "1.3rem", fontFamily: "'Georgia', serif", fontWeight: "bold", outline: "none", boxSizing: "border-box" }} />
       ) : `${plant.emoji} ${plant.name}`}
       onClose={onClose}
       extra={!editingName ? (
         <button onClick={() => { setTempName(plant.name); setEditingName(true); }}
-          style={{ background: "none", border: "none", color: "#5a8a5a", cursor: "pointer", fontSize: "1.1rem", lineHeight: 1, padding: "0.1rem" }}
+          style={{ background: "none", border: "none", color: "#ffffff", cursor: "pointer", fontSize: "1.1rem", lineHeight: 1, padding: "0.1rem" }}
           title="Editar nombre">✏️</button>
       ) : (
         <button onClick={handleSaveName}
-          style={{ background: "#1a4a1a", border: "1px solid #4a8a4a", color: "#c8e6c9", borderRadius: "6px", padding: "0.2rem 0.5rem", cursor: "pointer", fontSize: "0.85rem", lineHeight: 1.3 }}>✓</button>
+          style={{ background: "#1a4a1a", border: "1px solid #4a8a4a", color: "#ffffff", borderRadius: "6px", padding: "0.2rem 0.5rem", cursor: "pointer", fontSize: "0.85rem", lineHeight: 1.3 }}>✓</button>
       )}>
-      <div style={{ color: "#4a7a4a", fontSize: "0.82rem", fontStyle: "italic", marginBottom: "1.25rem" }}>{plant.species} · {plant.location}</div>
+      <div style={{ color: "#ffffff", fontSize: "0.82rem", fontStyle: "italic", marginBottom: "1.25rem" }}>{plant.species} · {plant.location}</div>
       <div style={{ display: "flex", gap: "0.4rem", marginBottom: "1.5rem", flexWrap: "wrap" }}>
         {tabs.map(([tab, label]) => (
           <button key={tab} onClick={() => setActiveTab(tab)} style={{
             background: activeTab === tab ? "#1a3a1a" : "none",
             border: `1px solid ${activeTab === tab ? "#4a7a4a" : "#2a4a2a"}`,
-            color: activeTab === tab ? "#c8e6c9" : "#5a8a5a",
+            color: "#ffffff",
             borderRadius: "8px", padding: "0.35rem 0.7rem", fontSize: "0.78rem", cursor: "pointer"
           }}>{label}</button>
         ))}
@@ -356,7 +356,7 @@ function PlantDetail({ plant, onClose, onLog, onUpdate }) {
       {activeTab === "historial" && (
         <div>
           {plant.history.length === 0
-            ? <p style={{ color: "#3a6a3a", textAlign: "center", padding: "2rem 0" }}>Sin registros aún</p>
+            ? <p style={{ color: "#ffffff", textAlign: "center", padding: "2rem 0" }}>Sin registros aún</p>
             : <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 {[...plant.history].reverse().map((ev, i) => {
                   const info = CARE_TYPES[ev.type];
@@ -364,9 +364,9 @@ function PlantDetail({ plant, onClose, onLog, onUpdate }) {
                     <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.75rem", background: "#0a140a", borderRadius: "8px", padding: "0.75rem" }}>
                       <span style={{ fontSize: "1.2rem" }}>{info.emoji}</span>
                       <div style={{ flex: 1 }}>
-                        <div style={{ color: info.color, fontSize: "0.85rem", fontWeight: "bold" }}>{info.label}</div>
-                        <div style={{ color: "#4a7a4a", fontSize: "0.75rem" }}>{formatDate(ev.date)}</div>
-                        {ev.notes && <div style={{ color: "#6a9a6a", fontSize: "0.75rem", marginTop: "0.25rem" }}>{ev.notes}</div>}
+                        <div style={{ color: "#ffffff", fontSize: "0.85rem", fontWeight: "bold" }}>{info.label}</div>
+                        <div style={{ color: "#ffffff", fontSize: "0.75rem" }}>{formatDate(ev.date)}</div>
+                        {ev.notes && <div style={{ color: "#ffffff", fontSize: "0.75rem", marginTop: "0.25rem" }}>{ev.notes}</div>}
                       </div>
                     </div>
                   );
@@ -385,12 +385,12 @@ function PlantDetail({ plant, onClose, onLog, onUpdate }) {
               <div key={type} style={{ background: "#0a140a", borderRadius: "10px", padding: "1rem", display: "flex", alignItems: "center", gap: "1rem" }}>
                 <span style={{ fontSize: "1.5rem" }}>{info.emoji}</span>
                 <div style={{ flex: 1 }}>
-                  <div style={{ color: "#c8e6c9", fontSize: "0.9rem" }}>{info.label}</div>
-                  <div style={{ color: "#5a8a5a", fontSize: "0.75rem" }}>{last ? `Último: ${formatDate(last.date)}` : "Sin registros"}</div>
-                  <div style={{ color: "#3a6a3a", fontSize: "0.7rem" }}>{events.length} registro{events.length !== 1 ? "s" : ""}</div>
+                  <div style={{ color: "#ffffff", fontSize: "0.9rem" }}>{info.label}</div>
+                  <div style={{ color: "#ffffff", fontSize: "0.75rem" }}>{last ? `Último: ${formatDate(last.date)}` : "Sin registros"}</div>
+                  <div style={{ color: "#ffffff", fontSize: "0.7rem" }}>{events.length} registro{events.length !== 1 ? "s" : ""}</div>
                 </div>
                 <button onClick={() => onLog(plant, type)}
-                  style={{ background: info.color + "22", border: `1px solid ${info.color}55`, color: info.color, borderRadius: "8px", padding: "0.4rem 0.8rem", fontSize: "0.8rem", cursor: "pointer" }}>
+                  style={{ background: info.color + "22", border: `1px solid ${info.color}55`, color: "#ffffff", borderRadius: "8px", padding: "0.4rem 0.8rem", fontSize: "0.8rem", cursor: "pointer" }}>
                   + Registrar
                 </button>
               </div>
@@ -403,9 +403,9 @@ function PlantDetail({ plant, onClose, onLog, onUpdate }) {
         <div>
           <textarea value={editNotes} onChange={e => setEditNotes(e.target.value)}
             placeholder="Observaciones, necesidades especiales..."
-            style={{ width: "100%", minHeight: "120px", background: "#0a140a", border: "1px solid #2a4a2a", borderRadius: "8px", color: "#c8e6c9", padding: "0.75rem", fontSize: "0.85rem", fontFamily: "inherit", resize: "vertical", boxSizing: "border-box" }} />
+            style={{ width: "100%", minHeight: "120px", background: "#0a140a", border: "1px solid #2a4a2a", borderRadius: "8px", color: "#ffffff", padding: "0.75rem", fontSize: "0.85rem", fontFamily: "inherit", resize: "vertical", boxSizing: "border-box" }} />
           <button onClick={handleSaveNotes}
-            style={{ marginTop: "0.75rem", background: saved ? "#2a5a2a" : "#1a3a1a", border: "1px solid #4a7a4a", color: "#c8e6c9", borderRadius: "8px", padding: "0.5rem 1.2rem", cursor: "pointer" }}>
+            style={{ marginTop: "0.75rem", background: saved ? "#2a5a2a" : "#1a3a1a", border: "1px solid #4a7a4a", color: "#ffffff", borderRadius: "8px", padding: "0.5rem 1.2rem", cursor: "pointer" }}>
             {saved ? "✓ Guardado" : "Guardar"}
           </button>
         </div>
@@ -420,21 +420,21 @@ function LogModal({ plant, type, onClose, onSave }) {
   const info = CARE_TYPES[type];
   return (
     <Modal title={`${info.emoji} Registrar ${info.label}`} onClose={onClose}>
-      <p style={{ color: "#5a8a5a", marginTop: 0 }}>Planta: <span style={{ color: "#c8e6c9" }}>{plant.name}</span></p>
+      <p style={{ color: "#ffffff", marginTop: 0 }}>Planta: <span style={{ color: "#ffffff"}}>{plant.name}</span></p>
       <div style={{ marginBottom: "1rem" }}>
-        <label style={{ color: "#5a8a5a", fontSize: "0.8rem", display: "block", marginBottom: "0.35rem" }}>Fecha y hora</label>
+        <label style={{ color: "#ffffff", fontSize: "0.8rem", display: "block", marginBottom: "0.35rem" }}>Fecha y hora</label>
         <input type="datetime-local" value={date} onChange={e => setDate(e.target.value)}
-          style={{ width: "100%", background: "#0a140a", border: "1px solid #2a4a2a", borderRadius: "8px", color: "#c8e6c9", padding: "0.6rem 0.75rem", fontSize: "0.85rem", boxSizing: "border-box" }} />
+          style={{ width: "100%", background: "#0a140a", border: "1px solid #2a4a2a", borderRadius: "8px", color: "#ffffff", padding: "0.6rem 0.75rem", fontSize: "0.85rem", boxSizing: "border-box" }} />
       </div>
       <div style={{ marginBottom: "1.25rem" }}>
-        <label style={{ color: "#5a8a5a", fontSize: "0.8rem", display: "block", marginBottom: "0.35rem" }}>Notas (opcional)</label>
+        <label style={{ color: "#ffffff", fontSize: "0.8rem", display: "block", marginBottom: "0.35rem" }}>Notas (opcional)</label>
         <textarea value={notes} onChange={e => setNotes(e.target.value)} placeholder="Ej: 50ml agua, fertilizante líquido..."
-          style={{ width: "100%", minHeight: "80px", background: "#0a140a", border: "1px solid #2a4a2a", borderRadius: "8px", color: "#c8e6c9", padding: "0.6rem 0.75rem", fontSize: "0.85rem", fontFamily: "inherit", resize: "vertical", boxSizing: "border-box" }} />
+          style={{ width: "100%", minHeight: "80px", background: "#0a140a", border: "1px solid #2a4a2a", borderRadius: "8px", color: "#ffffff", padding: "0.6rem 0.75rem", fontSize: "0.85rem", fontFamily: "inherit", resize: "vertical", boxSizing: "border-box" }} />
       </div>
       <div style={{ display: "flex", gap: "0.75rem" }}>
-        <button onClick={onClose} style={{ flex: 1, background: "none", border: "1px solid #2a4a2a", color: "#5a8a5a", borderRadius: "8px", padding: "0.6rem", cursor: "pointer" }}>Cancelar</button>
+        <button onClick={onClose} style={{ flex: 1, background: "none", border: "1px solid #2a4a2a", color: "#ffffff", borderRadius: "8px", padding: "0.6rem", cursor: "pointer" }}>Cancelar</button>
         <button onClick={() => onSave({ type, date: new Date(date).toISOString(), notes })}
-          style={{ flex: 2, background: info.color + "33", border: `1px solid ${info.color}88`, color: info.color, borderRadius: "8px", padding: "0.6rem", cursor: "pointer", fontSize: "0.9rem", fontWeight: "bold" }}>
+          style={{ flex: 2, background: info.color + "33", border: `1px solid ${info.color}88`, color: "#ffffff", borderRadius: "8px", padding: "0.6rem", cursor: "pointer", fontSize: "0.9rem", fontWeight: "bold" }}>
           {info.emoji} Registrar
         </button>
       </div>
@@ -449,10 +449,10 @@ function AddPlantModal({ onClose, onAdd }) {
     <Modal title="➕ Añadir planta" onClose={onClose}>
       {[["Nombre (ej: Monstera del salón)", "name"], ["Especie (ej: Monstera deliciosa)", "species"], ["Ubicación (ej: Balcón sur)", "location"]].map(([ph, k]) => (
         <input key={k} placeholder={ph} value={form[k]} onChange={e => set(k, e.target.value)}
-          style={{ width: "100%", background: "#0a140a", border: "1px solid #2a4a2a", borderRadius: "8px", color: "#c8e6c9", padding: "0.6rem 0.75rem", fontSize: "0.85rem", boxSizing: "border-box", marginBottom: "0.75rem" }} />
+          style={{ width: "100%", background: "#0a140a", border: "1px solid #2a4a2a", borderRadius: "8px", color: "#ffffff", padding: "0.6rem 0.75rem", fontSize: "0.85rem", boxSizing: "border-box", marginBottom: "0.75rem" }} />
       ))}
       <div style={{ marginBottom: "1rem" }}>
-        <div style={{ color: "#5a8a5a", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Emoji</div>
+        <div style={{ color: "#ffffff", fontSize: "0.8rem", marginBottom: "0.5rem" }}>Emoji</div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
           {EMOJIS.map(e => (
             <button key={e} onClick={() => set("emoji", e)} style={{
@@ -464,9 +464,9 @@ function AddPlantModal({ onClose, onAdd }) {
         </div>
       </div>
       <textarea placeholder="Notas iniciales..." value={form.notes} onChange={e => set("notes", e.target.value)}
-        style={{ width: "100%", minHeight: "70px", background: "#0a140a", border: "1px solid #2a4a2a", borderRadius: "8px", color: "#c8e6c9", padding: "0.6rem 0.75rem", fontSize: "0.85rem", fontFamily: "inherit", resize: "vertical", boxSizing: "border-box", marginBottom: "1rem" }} />
+        style={{ width: "100%", minHeight: "70px", background: "#0a140a", border: "1px solid #2a4a2a", borderRadius: "8px", color: "#ffffff", padding: "0.6rem 0.75rem", fontSize: "0.85rem", fontFamily: "inherit", resize: "vertical", boxSizing: "border-box", marginBottom: "1rem" }} />
       <button onClick={() => form.name.trim() && onAdd({ ...form, id: Date.now(), history: [], waterSchedule: {} })}
-        style={{ width: "100%", background: "#1a3a1a", border: "1px solid #4a7a4a", color: "#c8e6c9", borderRadius: "10px", padding: "0.7rem", cursor: "pointer", fontSize: "0.95rem" }}>
+        style={{ width: "100%", background: "#1a3a1a", border: "1px solid #4a7a4a", color: "#ffffff", borderRadius: "10px", padding: "0.7rem", cursor: "pointer", fontSize: "0.95rem" }}>
         🌱 Añadir planta
       </button>
     </Modal>
@@ -474,12 +474,8 @@ function AddPlantModal({ onClose, onAdd }) {
 }
 
 export default function App() {
-  const [plants, setPlants] = useState(() => {
-    try {
-      const saved = localStorage.getItem("plantTracker_v2");
-      return saved ? JSON.parse(saved) : SAMPLE_PLANTS;
-    } catch { return SAMPLE_PLANTS; }
-  });
+  const [plants, setPlants] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedPlant, setSelectedPlant] = useState(null);
   const [logModal, setLogModal] = useState(null);
   const [showAdd, setShowAdd] = useState(false);
@@ -487,17 +483,55 @@ export default function App() {
   const [filterStatus, setFilterStatus] = useState("all");
 
   useEffect(() => {
-    try { localStorage.setItem("plantTracker_v2", JSON.stringify(plants)); } catch {}
-  }, [plants]);
+    loadPlants();
+  }, []);
 
-  const updatePlant = (updated) => {
-    setPlants(ps => ps.map(p => p.id === updated.id ? updated : p));
-    if (selectedPlant?.id === updated.id) setSelectedPlant(updated);
+  const loadPlants = async () => {
+    try {
+      const response = await fetch('/.netlify/functions/getPlants');
+      const data = await response.json();
+      setPlants(data.length ? data : SAMPLE_PLANTS);
+    } catch (error) {
+      console.error('Error loading plants:', error);
+      setPlants(SAMPLE_PLANTS);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleSaveLog = ({ type, date, notes }) => {
+  const addPlant = async (plant) => {
+    try {
+      const response = await fetch('/.netlify/functions/addPlant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(plant)
+      });
+      const newPlant = await response.json();
+      setPlants(ps => [...ps, newPlant]);
+      setShowAdd(false);
+    } catch (error) {
+      console.error('Error adding plant:', error);
+    }
+  };
+
+  const updatePlant = async (updated) => {
+    try {
+      const response = await fetch('/.netlify/functions/updatePlant', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updated)
+      });
+      const updatedPlant = await response.json();
+      setPlants(ps => ps.map(p => p.id === updatedPlant.id ? updatedPlant : p));
+      if (selectedPlant?.id === updatedPlant.id) setSelectedPlant(updatedPlant);
+    } catch (error) {
+      console.error('Error updating plant:', error);
+    }
+  };
+
+  const handleSaveLog = async ({ type, date, notes }) => {
     const updated = { ...logModal.plant, history: [...logModal.plant.history, { type, date, notes }] };
-    updatePlant(updated);
+    await updatePlant(updated);
     setLogModal(null);
   };
 
@@ -514,17 +548,25 @@ export default function App() {
     )
     .filter(p => filterStatus === "all" || getWaterStatus(p).status === filterStatus);
 
+  if (loading) {
+    return (
+      <div style={{ minHeight: "100vh", background: "#070f07", color: "#ffffff", fontFamily: "'Segoe UI', sans-serif", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div>Cargando plantas...</div>
+      </div>
+    );
+  }
+
   return (
-    <div style={{ minHeight: "100vh", background: "#070f07", color: "#c8e6c9", fontFamily: "'Segoe UI', sans-serif" }}>
+    <div style={{ minHeight: "100vh", background: "#070f07", color: "#ffffff", fontFamily: "'Segoe UI', sans-serif" }}>
       <div style={{ background: "linear-gradient(180deg, #0a1a0a 0%, #070f07 100%)", borderBottom: "1px solid #1a2a1a", padding: "1.5rem 1.5rem 1rem" }}>
         <div style={{ maxWidth: "900px", margin: "0 auto" }}>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.75rem" }}>
             <div>
-              <h1 style={{ margin: 0, fontFamily: "'Georgia', serif", fontSize: "1.6rem", color: "#c8e6c9", letterSpacing: "-0.02em" }}>🌿 PlantaCare</h1>
-              <div style={{ color: "#3a6a3a", fontSize: "0.72rem", marginTop: "0.15rem" }}>{plants.length} plantas · {currentSeasonLabel}</div>
+              <h1 style={{ margin: 0, fontFamily: "'Georgia', serif", fontSize: "1.6rem", color: "#ffffff", letterSpacing: "-0.02em" }}>🌿 PlantaCare</h1>
+              <div style={{ color: "#ffffff", fontSize: "0.72rem", marginTop: "0.15rem" }}>{plants.length} plantas · {currentSeasonLabel}</div>
             </div>
             <button onClick={() => setShowAdd(true)}
-              style={{ background: "#1a3a1a", border: "1px solid #4a7a4a", color: "#c8e6c9", borderRadius: "10px", padding: "0.5rem 1rem", cursor: "pointer", fontSize: "0.85rem" }}>
+              style={{ background: "#1a3a1a", border: "1px solid #4a7a4a", color: "#ffffff", borderRadius: "10px", padding: "0.5rem 1rem", cursor: "pointer", fontSize: "0.85rem" }}>
               + Nueva planta
             </button>
           </div>
@@ -540,20 +582,20 @@ export default function App() {
               <button key={key} onClick={() => setFilterStatus(key)} style={{
                 background: filterStatus === key ? color + "22" : "none",
                 border: `1px solid ${filterStatus === key ? color : "#2a3a2a"}`,
-                color: filterStatus === key ? color : "#3a6a3a",
+                color: "#ffffff",
                 borderRadius: "20px", padding: "0.25rem 0.7rem", fontSize: "0.72rem", cursor: "pointer"
               }}>{label}</button>
             ))}
           </div>
 
           <input value={search} onChange={e => setSearch(e.target.value)} placeholder="🔍 Buscar plantas..."
-            style={{ width: "100%", background: "#0a140a", border: "1px solid #1e3a1e", borderRadius: "10px", color: "#c8e6c9", padding: "0.6rem 0.9rem", fontSize: "0.85rem", boxSizing: "border-box" }} />
+            style={{ width: "100%", background: "#0a140a", border: "1px solid #1e3a1e", borderRadius: "10px", color: "#ffffff", padding: "0.6rem 0.9rem", fontSize: "0.85rem", boxSizing: "border-box" }} />
         </div>
       </div>
 
       <div style={{ maxWidth: "900px", margin: "0 auto", padding: "1.5rem" }}>
         {filtered.length === 0 ? (
-          <div style={{ textAlign: "center", color: "#3a6a3a", padding: "4rem 0" }}>
+          <div style={{ textAlign: "center", color: "#ffffff", padding: "4rem 0" }}>
             <div style={{ fontSize: "3rem", marginBottom: "1rem" }}>🌱</div>
             <p>{search || filterStatus !== "all" ? "No hay plantas que coincidan" : "Añade tu primera planta"}</p>
           </div>
@@ -575,7 +617,7 @@ export default function App() {
         />
       )}
       {logModal && <LogModal plant={logModal.plant} type={logModal.type} onClose={() => setLogModal(null)} onSave={handleSaveLog} />}
-      {showAdd && <AddPlantModal onClose={() => setShowAdd(false)} onAdd={p => { setPlants(ps => [...ps, p]); setShowAdd(false); }} />}
+      {showAdd && <AddPlantModal onClose={() => setShowAdd(false)} onAdd={addPlant} />}
     </div>
   );
 }

@@ -1,16 +1,55 @@
-# React + Vite
+# 🌿 PlantaCare
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Una aplicación para gestionar el cuidado de tus plantas, con seguimiento de riego, fertilización y más.
 
-Currently, two official plugins are available:
+## 🚀 Despliegue en Netlify con Neon Database
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### 1. Configurar Neon Database
 
-## React Compiler
+1. Ve a [neon.tech](https://neon.tech) y crea una cuenta gratuita.
+2. Crea un nuevo proyecto de base de datos.
+3. Ve a la sección "SQL Editor" y ejecuta esta consulta para crear la tabla de plantas:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```sql
+CREATE TABLE plants (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  species TEXT,
+  location TEXT,
+  emoji TEXT,
+  notes TEXT,
+  history JSONB DEFAULT '[]'::jsonb,
+  water_schedule JSONB DEFAULT '{}'::jsonb,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+```
 
-## Expanding the ESLint configuration
+4. Ve a "Settings" > "Connection Details" y copia la cadena de conexión (DATABASE_URL).
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 2. Configurar Netlify
+
+1. Conecta tu repositorio de GitHub a Netlify.
+2. En "Build settings":
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+3. En "Environment variables", agrega:
+   - `DATABASE_URL`: Tu cadena de conexión de Neon
+
+### 3. Desplegar
+
+Haz push a tu rama principal y Netlify desplegará automáticamente.
+
+## 🛠 Desarrollo Local
+
+```bash
+npm install
+npm run dev
+```
+
+## 📋 Características
+
+- Seguimiento de riego por estaciones
+- Registro de cuidados (riego, fertilización, etc.)
+- Interfaz oscura con tema verde
+- Búsqueda y filtrado de plantas
+- Almacenamiento en base de datos PostgreSQL (Neon)
