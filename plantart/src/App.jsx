@@ -610,33 +610,6 @@ export default function App() {
       console.error('Error updating plant:', error);
     }
   };
-  const resetPlants = async () => {
-    if (!confirm('¿Seguro quieres resetear los datos y cargar las plantas nuevas?')) {
-      return;
-    }
-
-    try {
-      setLoading(true);
-      const response = await fetch('/.netlify/functions/resetPlants', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      });
-      const data = await response.json();
-      if (response.ok) {
-        setPlants(data);
-        setSelectedPlant(null);
-        setSearch('');
-        setFilterStatus('all');
-      } else {
-        alert('Error al resetear los datos: ' + (data.error || 'Error desconocido'));
-      }
-    } catch (error) {
-      console.error('Error resetting plants:', error);
-      alert('No se pudo resetear los datos. Revisa la consola.');
-    } finally {
-      setLoading(false);
-    }
-  };
   const deletePlant = async (plantId) => {
     if (!confirm('¿Estás seguro de que quieres eliminar esta planta? Esta acción no se puede deshacer.')) {
       return;
@@ -701,10 +674,6 @@ export default function App() {
               <button onClick={() => setShowAdd(true)}
                 style={{ background: "#1a3a1a", border: "1px solid #4a7a4a", color: "#ffffff", borderRadius: "10px", padding: "0.5rem 1rem", cursor: "pointer", fontSize: "0.85rem" }}>
                 + Nueva planta
-              </button>
-              <button onClick={resetPlants}
-                style={{ background: "#3a1a1a", border: "1px solid #7a4a4a", color: "#ffffff", borderRadius: "10px", padding: "0.5rem 1rem", cursor: "pointer", fontSize: "0.85rem" }}>
-                ♻️ Resetear datos
               </button>
             </div>
           </div>
