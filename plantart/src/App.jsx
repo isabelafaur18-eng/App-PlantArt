@@ -551,11 +551,28 @@ export default function App() {
     loadPlants();
   }, []);
 
+  const seedDefaultPlants = async (plantsToSeed) => {
+    for (const plant of plantsToSeed) {
+      const { id, ...payload } = plant;
+      await fetch('/.netlify/functions/addPlant', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...payload, history: plant.history || [], waterSchedule: plant.waterSchedule || {} })
+      });
+    }
+  };
+
   const loadPlants = async () => {
     try {
       const response = await fetch('/.netlify/functions/getPlants');
       const data = await response.json();
-      setPlants(data.length ? data : SAMPLE_PLANTS);
+
+      if (data.length) {
+        setPlants(data);
+      } else {
+        setPlants(SAMPLE_PLANTS);
+        await seedDefaultPlants(SAMPLE_PLANTS);
+      }
     } catch (error) {
       console.error('Error loading plants:', error);
       setPlants(SAMPLE_PLANTS);
@@ -593,7 +610,33 @@ export default function App() {
       console.error('Error updating plant:', error);
     }
   };
+  const resetPlants = async () => {
+    if (!confirm('¿Seguro quieres resetear los datos y cargar las plantas nuevas?')) {
+      return;
+    }
 
+    try {
+      setLoading(true);
+      const response = await fetch('/.netlify/functions/resetPlants', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+      const data = await response.json();
+      if (response.ok) {
+        setPlants(data);
+        setSelectedPlant(null);
+        setSearch('');
+        setFilterStatus('all');
+      } else {
+        alert('Error al resetear los datos: ' + (data.error || 'Error desconocido'));
+      }
+    } catch (error) {
+      console.error('Error resetting plants:', error);
+      alert('No se pudo resetear los datos. Revisa la consola.');
+    } finally {
+      setLoading(false);
+    }
+  };
   const deletePlant = async (plantId) => {
     if (!confirm('¿Estás seguro de que quieres eliminar esta planta? Esta acción no se puede deshacer.')) {
       return;
@@ -654,10 +697,16 @@ export default function App() {
               <h1 style={{ margin: 0, fontFamily: "'Georgia', serif", fontSize: "1.6rem", color: "#ffffff", letterSpacing: "-0.02em" }}>🌿 PlantaCare</h1>
               <div style={{ color: "#ffffff", fontSize: "0.72rem", marginTop: "0.15rem" }}>{plants.length} plantas · {currentSeasonLabel}</div>
             </div>
-            <button onClick={() => setShowAdd(true)}
-              style={{ background: "#1a3a1a", border: "1px solid #4a7a4a", color: "#ffffff", borderRadius: "10px", padding: "0.5rem 1rem", cursor: "pointer", fontSize: "0.85rem" }}>
-              + Nueva planta
-            </button>
+            <div style={{ display: "flex", gap: "0.5rem" }}>
+              <button onClick={() => setShowAdd(true)}
+                style={{ background: "#1a3a1a", border: "1px solid #4a7a4a", color: "#ffffff", borderRadius: "10px", padding: "0.5rem 1rem", cursor: "pointer", fontSize: "0.85rem" }}>
+                + Nueva planta
+              </button>
+              <button onClick={resetPlants}
+                style={{ background: "#3a1a1a", border: "1px solid #7a4a4a", color: "#ffffff", borderRadius: "10px", padding: "0.5rem 1rem", cursor: "pointer", fontSize: "0.85rem" }}>
+                ♻️ Resetear datos
+              </button>
+            </div>
           </div>
 
           {/* Filter pills */}
