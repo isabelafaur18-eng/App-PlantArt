@@ -65,14 +65,74 @@ const daysAgo = (iso) => {
 
 const SAMPLE_PLANTS = [
   {
-    id: 1, name: "Monstera Deliciosa", species: "Monstera deliciosa", location: "Salón",
-    emoji: "🌿", notes: "Le gusta la luz indirecta", history: [],
-    waterSchedule: { spring: 7, summer: 5, autumn: 10, winter: 14 },
+    id: 1, name: "Monstera Thai Constellation", species: "Monstera deliciosa", location: "Salón",
+    emoji: "🌿", notes: "Variegada única, luz indirecta brillante", history: [],
+    waterSchedule: { spring: 8, summer: 7, autumn: 9, winter: 10 },
   },
   {
-    id: 2, name: "Cactus San Pedro", species: "Echinopsis pachanoi", location: "Terraza",
-    emoji: "🌵", notes: "Muy poca agua en invierno", history: [],
-    waterSchedule: { spring: 14, summer: 7, autumn: 21, winter: 45 },
+    id: 2, name: "Planta del dinero", species: "Epipremnum pinnatum", location: "Oficina",
+    emoji: "💚", notes: "Trae prosperidad, fácil de cuidar", history: [],
+    waterSchedule: { spring: 5, summer: 4, autumn: 5, winter: 6 },
+  },
+  {
+    id: 3, name: "Cinta bicolor", species: "Chlorophytum comosum", location: "Ventana",
+    emoji: "🎀", notes: "Produce hijuelos naturalmente", history: [],
+    waterSchedule: { spring: 6, summer: 5, autumn: 6, winter: 7 },
+  },
+  {
+    id: 4, name: "Árbol de jade 'Orejas de Shrek'", species: "Crassula ovata", location: "Terraza",
+    emoji: "🌳", notes: "Suculenta, muy resistente a sequía", history: [],
+    waterSchedule: { spring: 12, summer: 10, autumn: 15, winter: 20 },
+  },
+  {
+    id: 5, name: "Cala", species: "Zantedeschia aethiopica", location: "Baño",
+    emoji: "🤍", notes: "Flores elegantes blancas, requiere humedad", history: [],
+    waterSchedule: { spring: 3, summer: 2, autumn: 3, winter: 4 },
+  },
+  {
+    id: 6, name: "Philodendron Lemon Lime", species: "Philodendron hederaceum", location: "Dormitorio",
+    emoji: "🍋", notes: "Hojas amarillo limón brillantes", history: [],
+    waterSchedule: { spring: 7, summer: 6, autumn: 7, winter: 8 },
+  },
+  {
+    id: 7, name: "Philodendron Micans", species: "Philodendron hederaceum micans", location: "Estudio",
+    emoji: "✨", notes: "Hojas iridiscentes, luz indirecta", history: [],
+    waterSchedule: { spring: 7, summer: 6, autumn: 7, winter: 8 },
+  },
+  {
+    id: 8, name: "Poto Marble Queen", species: "Epipremnum aureum", location: "Salón",
+    emoji: "👑", notes: "Moteado blanco y verde, trepa fácil", history: [],
+    waterSchedule: { spring: 8, summer: 7, autumn: 9, winter: 10 },
+  },
+  {
+    id: 9, name: "Scindapsus pictus", species: "Scindapsus pictus", location: "Cocina",
+    emoji: "🎨", notes: "Manchitas plateadas, espectacular", history: [],
+    waterSchedule: { spring: 8, summer: 7, autumn: 8, winter: 9 },
+  },
+  {
+    id: 10, name: "Poto Golden", species: "Epipremnum aureum", location: "Pasillo",
+    emoji: "💛", notes: "Hojas doradas, crece rápido", history: [],
+    waterSchedule: { spring: 8, summer: 7, autumn: 9, winter: 10 },
+  },
+  {
+    id: 11, name: "Philodendron Scandens", species: "Philodendron hederaceum", location: "Ventana",
+    emoji: "🌱", notes: "Trepadora clásica, muy adaptable", history: [],
+    waterSchedule: { spring: 7, summer: 6, autumn: 7, winter: 8 },
+  },
+  {
+    id: 12, name: "Poto Epipremnum", species: "Epipremnum pinnatum", location: "Balcón",
+    emoji: "🌿", notes: "Poto resistente y decorativo", history: [],
+    waterSchedule: { spring: 8, summer: 7, autumn: 9, winter: 10 },
+  },
+  {
+    id: 13, name: "Ficus elastica Robusta", species: "Ficus elastica", location: "Entrada",
+    emoji: "🍃", notes: "Árbol robusto, hojas grandes y brillantes", history: [],
+    waterSchedule: { spring: 8, summer: 7, autumn: 9, winter: 10 },
+  },
+  {
+    id: 14, name: "Pilea peperomioides", species: "Pilea peperomioides", location: "Mesa",
+    emoji: "🪴", notes: "Moneda china, produce hijuelos", history: [],
+    waterSchedule: { spring: 6, summer: 5, autumn: 6, winter: 7 },
   },
 ];
 
