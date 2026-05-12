@@ -299,7 +299,7 @@ function WateringTab({ plant, onUpdate }) {
   );
 }
 
-function PlantDetail({ plant, onClose, onLog, onUpdate }) {
+function PlantDetail({ plant, onClose, onLog, onUpdate, onDelete }) {
   const [activeTab, setActiveTab] = useState("riego");
   const [editNotes, setEditNotes] = useState(plant.notes || "");
   const [saved, setSaved] = useState(false);
@@ -332,9 +332,14 @@ function PlantDetail({ plant, onClose, onLog, onUpdate }) {
       ) : `${plant.emoji} ${plant.name}`}
       onClose={onClose}
       extra={!editingName ? (
-        <button onClick={() => { setTempName(plant.name); setEditingName(true); }}
-          style={{ background: "none", border: "none", color: "#ffffff", cursor: "pointer", fontSize: "1.1rem", lineHeight: 1, padding: "0.1rem" }}
-          title="Editar nombre">✏️</button>
+        <div style={{ display: "flex", gap: "0.5rem" }}>
+          <button onClick={() => { setTempName(plant.name); setEditingName(true); }}
+            style={{ background: "none", border: "none", color: "#ffffff", cursor: "pointer", fontSize: "1.1rem", lineHeight: 1, padding: "0.1rem" }}
+            title="Editar nombre">✏️</button>
+          <button onClick={() => onDelete(plant.id)}
+            style={{ background: "none", border: "none", color: "#ff6b6b", cursor: "pointer", fontSize: "1.1rem", lineHeight: 1, padding: "0.1rem" }}
+            title="Eliminar planta">🗑️</button>
+        </div>
       ) : (
         <button onClick={handleSaveName}
           style={{ background: "#1a4a1a", border: "1px solid #4a8a4a", color: "#ffffff", borderRadius: "6px", padding: "0.2rem 0.5rem", cursor: "pointer", fontSize: "0.85rem", lineHeight: 1.3 }}>✓</button>
@@ -529,6 +534,30 @@ export default function App() {
     }
   };
 
+  const deletePlant = async (plantId) => {
+    if (!confirm('¿Estás seguro de que quieres eliminar esta planta? Esta acción no se puede deshacer.')) {
+      return;
+    }
+
+    try {
+      const response = await fetch(`/.netlify/functions/deletePlant?id=${plantId}`, {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (response.ok) {
+        setPlants(ps => ps.filter(p => p.id !== plantId));
+        setSelectedPlant(null); // Cerrar el modal si la planta estaba seleccionada
+      } else {
+        const error = await response.json();
+        alert('Error al eliminar la planta: ' + error.error);
+      }
+    } catch (error) {
+      console.error('Error deleting plant:', error);
+      alert('Error al eliminar la planta');
+    }
+  };
+
   const handleSaveLog = async ({ type, date, notes }) => {
     const updated = { ...logModal.plant, history: [...logModal.plant.history, { type, date, notes }] };
     await updatePlant(updated);
@@ -614,6 +643,7 @@ export default function App() {
           onClose={() => setSelectedPlant(null)}
           onLog={(plant, type) => setLogModal({ plant, type })}
           onUpdate={updatePlant}
+          onDelete={deletePlant}
         />
       )}
       {logModal && <LogModal plant={logModal.plant} type={logModal.type} onClose={() => setLogModal(null)} onSave={handleSaveLog} />}

@@ -57,6 +57,7 @@ npm run dev
 - **PWA (Progressive Web App)**: Funciona como app nativa en móviles
 - **Acceso offline**: Funciona sin conexión a internet
 - **Instalación en dispositivos**: Se puede instalar como app en iOS/Android
+- **Gestión completa de plantas**: Crear, editar, eliminar plantas
 
 ## 🌐 Acceso Multi-dispositivo
 
