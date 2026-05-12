@@ -54,3 +54,18 @@ npm run dev
 - Interfaz oscura con tema verde
 - Búsqueda y filtrado de plantas
 - Almacenamiento en base de datos PostgreSQL (Neon)
+
+## 🌐 Acceso Multi-dispositivo
+
+Esta aplicación está diseñada para funcionar en **cualquier dispositivo** con conexión a internet:
+
+- **💻 Computadoras**: Acceso completo desde desktop
+- **📱 Móviles**: Interfaz adaptativa para smartphones y tablets
+- **📟 Tablets**: Optimizada para pantallas táctiles
+
+Todos los dispositivos acceden a la **misma base de datos** en tiempo real, por lo que verás los mismos datos actualizados en todas partes.
+
+### URL de Producción
+Una vez desplegado en Netlify, tendrás una URL como: `https://tu-app-plantart.netlify.app`
+
+Comparte esta URL para acceder desde cualquier dispositivo.

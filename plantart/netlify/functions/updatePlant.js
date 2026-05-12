@@ -1,10 +1,5 @@
 const { Client } = require('pg')
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-})
-
 exports.handler = async (event, context) => {
   if (event.httpMethod !== 'PUT') {
     return {
@@ -12,6 +7,11 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ error: 'Method not allowed' })
     }
   }
+
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL,
+    ssl: { rejectUnauthorized: false }
+  })
 
   try {
     await client.connect()
@@ -48,6 +48,7 @@ exports.handler = async (event, context) => {
     }
   } catch (error) {
     console.error('Error:', error)
+    await client.end() // Ensure client is closed on error
     return {
       statusCode: 500,
       body: JSON.stringify({ error: error.message })
