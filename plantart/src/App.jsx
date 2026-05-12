@@ -365,6 +365,14 @@ function PlantDetail({ plant, onClose, onLog, onUpdate, onDelete }) {
   const [saved, setSaved] = useState(false);
   const [editingName, setEditingName] = useState(false);
   const [tempName, setTempName] = useState(plant.name);
+  const [editingLocation, setEditingLocation] = useState(false);
+  const [tempLocation, setTempLocation] = useState(plant.location || "");
+
+  useEffect(() => {
+    setEditNotes(plant.notes || "");
+    setTempName(plant.name);
+    setTempLocation(plant.location || "");
+  }, [plant]);
 
   const handleSaveNotes = async () => {
     await onUpdate({ ...plant, notes: editNotes });
@@ -377,6 +385,14 @@ function PlantDetail({ plant, onClose, onLog, onUpdate, onDelete }) {
       await onUpdate({ ...plant, name: tempName.trim() });
     }
     setEditingName(false);
+  };
+
+  const handleSaveLocation = async () => {
+    const location = tempLocation.trim();
+    if (location && location !== plant.location) {
+      await onUpdate({ ...plant, location });
+    }
+    setEditingLocation(false);
   };
 
   const tabs = [["riego", "💧 Riego"], ["historial", "Historial"], ["cuidados", "Cuidados"], ["notas", "Notas"]];
@@ -404,7 +420,27 @@ function PlantDetail({ plant, onClose, onLog, onUpdate, onDelete }) {
         <button onClick={handleSaveName}
           style={{ background: "#1a4a1a", border: "1px solid #4a8a4a", color: "#ffffff", borderRadius: "6px", padding: "0.2rem 0.5rem", cursor: "pointer", fontSize: "0.85rem", lineHeight: 1.3 }}>✓</button>
       )}>
-      <div style={{ color: "#ffffff", fontSize: "0.82rem", fontStyle: "italic", marginBottom: "1.25rem" }}>{plant.species} · {plant.location}</div>
+      <div style={{ color: "#ffffff", fontSize: "0.82rem", fontStyle: "italic", marginBottom: "1.25rem", display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+        <span>{plant.species}</span>
+        <span style={{ color: "#ffffff" }}>·</span>
+        {editingLocation ? (
+          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+            <input value={tempLocation} onChange={e => setTempLocation(e.target.value)}
+              onKeyDown={e => { if (e.key === "Enter") handleSaveLocation(); if (e.key === "Escape") setEditingLocation(false); }}
+              onBlur={handleSaveLocation}
+              autoFocus
+              placeholder="Ubicación"
+              style={{ background: "#0a140a", border: "1px solid #4a7a4a", borderRadius: "8px", color: "#ffffff", padding: "0.3rem 0.5rem", fontSize: "0.85rem", outline: "none", minWidth: "150px" }} />
+          </div>
+        ) : (
+          <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+            <span>{plant.location || "Sin ubicación"}</span>
+            <button onClick={() => { setTempLocation(plant.location || ""); setEditingLocation(true); }}
+              style={{ background: "none", border: "none", color: "#ffffff", cursor: "pointer", fontSize: "0.95rem", lineHeight: 1, padding: "0.1rem" }}
+              title="Editar ubicación">✏️</button>
+          </div>
+        )}
+      </div>
       <div style={{ display: "flex", gap: "0.4rem", marginBottom: "1.5rem", flexWrap: "wrap" }}>
         {tabs.map(([tab, label]) => (
           <button key={tab} onClick={() => setActiveTab(tab)} style={{
